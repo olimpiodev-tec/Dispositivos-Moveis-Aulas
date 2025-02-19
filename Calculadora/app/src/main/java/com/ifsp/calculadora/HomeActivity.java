@@ -39,7 +39,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Intent telaCalcula = new Intent(this, CalculaActivity.class);
+        Intent telaCalcula = new Intent(HomeActivity.this, CalculaActivity.class);
 
         if (v.getId() == R.id.btnAdicao) {
             telaCalcula.putExtra("parametro", "Somar Números");
