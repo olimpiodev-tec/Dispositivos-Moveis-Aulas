@@ -55,25 +55,24 @@
         android:id="@+id/tvInformacoes"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:singleLine="false"
         android:text="Informações"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/etCep"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="@+id/etCep"
         app:layout_constraintTop_toBottomOf="@+id/btnBuscar" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_marginTop="20dp"
+        android:id="@+id/pgBar"
         style="?android:attr/progressBarStyle"
-        android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/btnBuscar"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="@+id/btnBuscar"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/tvInformacoes"
+        app:layout_constraintStart_toStartOf="@+id/tvInformacoes"
         app:layout_constraintTop_toBottomOf="@+id/tvInformacoes" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

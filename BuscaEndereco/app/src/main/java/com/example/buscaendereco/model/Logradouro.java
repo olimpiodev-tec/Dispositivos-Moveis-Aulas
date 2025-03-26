@@ -1,5 +1,7 @@
 package com.example.buscaendereco.model;
 
+import androidx.annotation.NonNull;
+
 public class Logradouro {
     private String cep;
     private String state;
@@ -37,4 +39,14 @@ public class Logradouro {
         return ibge;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return "Endereço: " + this.getStreet() + "\n" +
+               "Bairro: " + this.getNeighborhood() + "\n" +
+               "Cidade: " + this.getCity() + "\n" +
+               "CEP: " + this.getCep() + "\n" +
+               "Complemento: " + this.getComplement() + "\n" +
+               "IBGE: " + this.getIbge();
+    }
 }
