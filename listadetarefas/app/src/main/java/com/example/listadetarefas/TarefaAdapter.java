@@ -1,11 +1,14 @@
 package com.example.listadetarefas;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
@@ -34,9 +37,11 @@ public class TarefaAdapter extends BaseAdapter {
         return position;
     }
 
+    @SuppressLint("ViewHolder")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = LayoutInflater.from(parent);
+        convertView = LayoutInflater.from(context)
+                .inflate(R.layout.tarefa_item, parent, false);
 
         Tarefa tarefa = tarefas.get(position);
 
@@ -48,8 +53,10 @@ public class TarefaAdapter extends BaseAdapter {
         tvDescricao.setText(tarefa.getDescricao());
 
         if (tarefa.isConcluido()) {
+            tvStatus.setTextColor(ContextCompat.getColor(context, R.color.green));
             tvStatus.setText("Finalizada");
         } else {
+            tvStatus.setTextColor(ContextCompat.getColor(context, R.color.yellow));
             tvStatus.setText("Em andamento");
         }
 

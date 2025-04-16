@@ -1,6 +1,8 @@
 package com.example.listadetarefas;
 
 import android.os.Bundle;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +10,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends AppCompatActivity {
+
+    private ListView lvTarefas;
+    private TarefaAdapter tarefaAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +34,42 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        lvTarefas = findViewById(R.id.lvTarefas);
+        buscarTarefas();
+    }
+
+    private void buscarTarefas() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-tasks-4n17.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        TarefasApi tarefasApi = retrofit.create(TarefasApi.class);
+
+        Call<List<Tarefa>> getTarefasServer = tarefasApi.getTarefas();
+        getTarefasServer.enqueue(new Callback<List<Tarefa>>() {
+            @Override
+            public void onResponse(Call<List<Tarefa>> call, Response<List<Tarefa>> response) {
+                if (response.isSuccessful()) {
+                    List<Tarefa> tarefas = response.body();
+                    tarefaAdapter = new TarefaAdapter(MainActivity.this, tarefas);
+                    lvTarefas.setAdapter(tarefaAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Tarefa>> call, Throwable throwable) {
+                Toast.makeText(MainActivity.this, "Erro ao buscar tarefas", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 }
+
+
+
+
+
+
+

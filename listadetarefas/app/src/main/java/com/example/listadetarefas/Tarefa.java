@@ -1,8 +1,15 @@
 package com.example.listadetarefas;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Tarefa {
+    @SerializedName("title")
     private String titulo;
+
+    @SerializedName("description")
     private String descricao;
+
+    @SerializedName("done")
     private boolean concluido;
 
     public Tarefa(String titulo, String descricao, boolean concluido) {
