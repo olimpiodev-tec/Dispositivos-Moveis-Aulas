@@ -1,6 +1,9 @@
 package com.example.listadetarefas;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,11 +40,20 @@ public class MainActivity extends AppCompatActivity {
 
         lvTarefas = findViewById(R.id.lvTarefas);
         buscarTarefas();
+
+        ImageView ivCadastrar = findViewById(R.id.ivAdicionarTarefa);
+        ivCadastrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent telaCadastrar = new Intent(MainActivity.this, CadastroActivity.class);
+                startActivity(telaCadastrar);
+            }
+        });
     }
 
     private void buscarTarefas() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api-tasks-4n17.onrender.com/")
+                .baseUrl(Constantes.API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
