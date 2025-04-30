@@ -2,7 +2,11 @@ package com.example.listadetarefas;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Tarefa {
+import java.io.Serializable;
+
+public class Tarefa implements Serializable {
+    private int id;
+
     @SerializedName("title")
     private String titulo;
 
@@ -16,6 +20,10 @@ public class Tarefa {
         this.titulo = titulo;
         this.descricao = descricao;
         this.concluido = concluido;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitulo() {

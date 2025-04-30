@@ -1,8 +1,10 @@
 package com.example.listadetarefas;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         lvTarefas = findViewById(R.id.lvTarefas);
         buscarTarefas();
+        editarTarefa();
 
         ImageView ivCadastrar = findViewById(R.id.ivAdicionarTarefa);
         ivCadastrar.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +50,70 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent telaCadastrar = new Intent(MainActivity.this, CadastroActivity.class);
                 startActivity(telaCadastrar);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        buscarTarefas();
+    }
+
+    private void editarTarefa() {
+        lvTarefas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Tarefa tarefa = (Tarefa) parent.getItemAtPosition(position);
+
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Escolha uma opção")
+                        .setMessage("O que deseja fazer com a tarefa?")
+                        .setPositiveButton("Atualizar", ((dialog, which) -> {
+                            if (tarefa.isConcluido()) {
+                                Toast.makeText(MainActivity.this, "Tarefa concluída não pode ser editada!", Toast.LENGTH_LONG).show();
+                            } else {
+                                Intent telaCadastro = new Intent(MainActivity.this, CadastroActivity.class);
+                                telaCadastro.putExtra("tarefa", tarefa);
+                                startActivity(telaCadastro);
+
+                            }
+                        }))
+                        .setNegativeButton("Remover", ((dialog, which) -> {
+                            removerTarefa(tarefa.getId());
+                        }))
+                        .setNeutralButton("Cancelar", null)
+                        .show();
+
+                return true;
+            }
+        });
+    }
+
+    private void removerTarefa(int tarefaId) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constantes.API_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        TarefasApi tarefasApi = retrofit.create(TarefasApi.class);
+
+        Call<Void> deletarTarefa = tarefasApi.deletarTarefa(tarefaId);
+        deletarTarefa.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(MainActivity.this, "Tarefa excluída com sucesso!", Toast.LENGTH_LONG).show();
+                    buscarTarefas();
+                } else {
+                    Toast.makeText(MainActivity.this, "Houve um erro ao excluir tarefa", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable throwable) {
+                Toast.makeText(MainActivity.this, "Erro ao comunicar com a Api", Toast.LENGTH_LONG).show();
             }
         });
     }
