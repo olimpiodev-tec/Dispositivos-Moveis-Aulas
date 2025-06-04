@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/etUsuario"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/etLoginSenha"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
@@ -68,29 +68,29 @@
         android:inputType="text"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextText"
-        app:layout_constraintStart_toStartOf="@+id/editTextText"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintEnd_toEndOf="@+id/etUsuario"
+        app:layout_constraintStart_toStartOf="@+id/etUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/etUsuario" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btLogar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/blue"
         android:text="Entrar"
-        app:layout_constraintEnd_toEndOf="@+id/editTextText2"
-        app:layout_constraintStart_toStartOf="@+id/editTextText2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
+        app:layout_constraintEnd_toEndOf="@+id/etLoginSenha"
+        app:layout_constraintStart_toStartOf="@+id/etLoginSenha"
+        app:layout_constraintTop_toBottomOf="@+id/etLoginSenha" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvCadastro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Não tem cadastro, clique aqui"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintEnd_toEndOf="@+id/btLogar"
+        app:layout_constraintStart_toStartOf="@+id/btLogar"
+        app:layout_constraintTop_toBottomOf="@+id/btLogar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
