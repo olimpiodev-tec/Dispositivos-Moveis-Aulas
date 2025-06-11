@@ -1,5 +1,7 @@
 package com.example.carteira.model;
 
+import java.util.Calendar;
+
 public class Lancamento {
     private int id;
     private String categoria;
@@ -10,15 +12,18 @@ public class Lancamento {
     private int mes;
     private int ano;
 
-    public Lancamento(int id, String categoria, String descricao, String tipo, Double valor, int dia, int mes, int ano) {
+    public Lancamento(int id, String categoria, String descricao, String tipo, Double valor) {
         this.id = id;
         this.categoria = categoria;
         this.descricao = descricao;
         this.tipo = tipo;
         this.valor = valor;
-        this.dia = dia;
-        this.mes = mes;
-        this.ano = ano;
+
+        Calendar calendar = Calendar.getInstance();
+
+        this.dia = calendar.get(Calendar.DAY_OF_MONTH);
+        this.mes = calendar.get(Calendar.MONTH) + 1;
+        this.ano = calendar.get(Calendar.YEAR);
     }
 
     public int getId() {
@@ -51,5 +56,18 @@ public class Lancamento {
 
     public int getAno() {
         return ano;
+    }
+
+    public String showDataFormatada() {
+        return String.format(
+                String.valueOf(this.dia)
+                        .concat("/")
+                        .concat(String.valueOf(this.mes))
+                        .concat("/")
+                        .concat(String.valueOf(this.ano)));
+    }
+
+    public String showValor() {
+        return "R$ " .concat(String.valueOf(this.valor).replace(".", ","));
     }
 }

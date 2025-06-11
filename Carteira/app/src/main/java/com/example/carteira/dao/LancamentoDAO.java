@@ -54,7 +54,7 @@ public class LancamentoDAO {
                 int mes = cursor.getInt(6);
                 int ano = cursor.getInt(7);
 
-                lancamentos.add(new Lancamento(id, categoria, descricao, tipo, valor, dia, mes, ano));
+                lancamentos.add(new Lancamento(id, categoria, descricao, tipo, valor));
 
             } while (cursor.moveToNext());
         }

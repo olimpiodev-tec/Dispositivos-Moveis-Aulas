@@ -22,14 +22,14 @@ public class CategoriaDAO {
     public void inserirCategoria(Categoria categoria) {
         // INSERT INTO categorias (categoria) VALUES ("lanche")
         ContentValues values = new ContentValues();
-        values.put(DbHelper.COLUMN_CATEGORIA, categoria.getNome());
+        values.put(DbHelper.COLUMN_NOME, categoria.getNome());
         db.insert(DbHelper.TABLE_CATEGORIA_NAME, null, values);
     }
 
     public List<Categoria> listarCategorias() {
         List<Categoria> categorias = new ArrayList<>();
         Cursor cursor = db.query(DbHelper.TABLE_CATEGORIA_NAME,
-                new String[] {DbHelper.COLUMN_ID, DbHelper.COLUMN_CATEGORIA},
+                new String[] {DbHelper.COLUMN_ID, DbHelper.COLUMN_NOME},
                 null, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
